@@ -36,6 +36,11 @@
       { unitName: "Comp 340", cf: 3.5, grade: "" },
     ];
 
+    const header = document.createElement("h5");
+    header.innerText = "First column = A,Second column= B, Third column= C, Fourth column = D.";
+    container.appendChild(header);
+
+
     const convertGradeToMarks = { A: 70, B: 60, C: 50, D: 40 };
     units.forEach((unit, index) => {
       const row = document.createElement("div");
