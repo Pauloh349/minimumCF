@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estimate</title>
+  </head>
+  <body></body>
+  <script>
+    const container = document.body;
+    const styleContainer = container.style;
+    // styleContainer.backgroundColor = "green";
+    styleContainer.margin = "0";
+    styleContainer.display = "flex";
+    styleContainer.alignItems = "center";
+    styleContainer.justifyContent = "center";
+
+    const buttonContainer = document.createElement("div");
+    const styleButtonContainer = buttonContainer.style;
+    styleButtonContainer.display = "flex";
+    styleButtonContainer.flexDirection = "column";
+    styleButtonContainer.gap = "40px";
+    styleButtonContainer.height = "100vh";
+    styleButtonContainer.justifyContent = "center";
+
+    const btnApplied = document.createElement("button");
+    const styleBtnApplied = btnApplied.style;
+    styleBtnApplied.padding = "0.7rem";
+    styleBtnApplied.borderRadius = "20px";
+    styleBtnApplied.fontWeight = "900";
+    btnApplied.textContent = "Bsc. Applied Computer Science (S17)";
+    btnApplied.addEventListener("click", () => {
+      window.location.href = "./appliedcs.html";
+    });
+
+    const btnCs = document.createElement("button");
+    const styleBtnCs = btnCs.style;
+    styleBtnCs.padding = "0.7rem";
+    btnCs.textContent = "Bsc. Computer Science (S13)";
+    styleBtnCs.borderRadius = "20px";
+    styleBtnCs.fontWeight = "900";
+    btnCs.addEventListener("click", () => {
+      window.location.href = "./cscience.html";
+    });
+    buttonContainer.appendChild(btnApplied);
+    buttonContainer.appendChild(btnCs);
+    document.body.appendChild(buttonContainer);
+  </script>
+</html>

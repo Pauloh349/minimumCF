@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body></body>
+
+  <script>
+    const container = document.body;
+    container.style.display = "flex";
+    container.style.flexDirection = "column";
+    container.style.padding = "10px";
+    container.style.alignItems = "center";
+    container.style.backgroundColor = "#fff00";
+
+    const units = [
+      { unitName: "comp 325", cf: 3.5, grade: "" },
+      { unitName: "Comp 312", cf: 4.0, grade: "" },
+      { unitName: "Comp 332", cf: 3.5, grade: "" },
+      { unitName: "Comp 326", cf: 3.5, grade: "" },
+      { unitName: "acmp 381", cf: 3.5, grade: "" },
+      { unitName: "Comp 362", cf: 3.5, grade: "" },
+      { unitName: "Comp 371", cf: 3.5, grade: "" },
+      { unitName: "Comp 381", cf: 3.5, grade: "" },
+
+      { unitName: "Comp 340", cf: 3.5, grade: "" },
+      { unitName: "Comp 341", cf: 3.0, grade: "" },
+      { unitName: "ACmp 340", cf: 3.5, grade: "" },
+      { unitName: "Comp 361", cf: 3.5, grade: "" },
+      { unitName: "Comp 334", cf: 3.5, grade: "" },
+      { unitName: "Comp 351", cf: 3.0, grade: "" },
+      { unitName: "Comp 390", cf: 2.0, grade: "" },
+      { unitName: "Comp 391", cf: 3.5, grade: "" },
+    ];
+
+    const convertGradeToMarks = { A: 70, B: 60, C: 50, D: 40 };
+    units.forEach((unit, index) => {
+      const row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.gap = "20px";
+      row.style.alignItems = "center";
+
+      const name = document.createElement("p");
+      name.style.margin = "0";
+      name.style.fontWeight = "900";
+      name.style.marginRight = "10px";
+      name.style.color = "green";
+      name.innerText = unit.unitName.toUpperCase();
+      row.appendChild(name);
+
+      const radios = document.createElement("div");
+      ["A", "B", "C", "D"].map((grade) => {
+        const radio = document.createElement("input");
+        radio.style.marginLeft = "15px";
+        const label = document.createElement("label");
+
+        radio.type = "radio";
+        radio.style.margin = "10px";
+        radio.value = grade;
+        radio.name = `grade-${index}`;
+
+        label.appendChild(radio);
+        radios.appendChild(label);
+
+        radio.addEventListener("change", () => {
+          unit.grade = grade;
+          recalculate();
+        });
+      });
+      document.body.appendChild(row);
+
+      row.appendChild(radios);
+    });
+
+    const result = document.createElement("p");
+    document.body.appendChild(result);
+
+    function recalculate() {
+      totalCF = 0;
+      totalSum = 0;
+      units.forEach((unit) => {
+        const marks = convertGradeToMarks[unit.grade.toUpperCase()] || 0;
+
+        totalCF += unit.cf;
+        totalSum += unit.cf * marks;
+        const average = (totalSum / totalCF).toFixed(3);
+
+        result.innerText = `MINIMUM CF you can get:  ${average}`;
+        result.style.fontWeight = "900";
+        result.style.color = average < 40 ? "red" : "green";
+        document.title = average;
+      });
+    }
+
+    recalculate();
+  </script>
+</html>
