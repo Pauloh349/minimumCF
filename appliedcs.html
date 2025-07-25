@@ -43,7 +43,7 @@
       "First column = A,Second column= B, Third column= C, Fourth column = D.";
     container.appendChild(header);
 
-    const convertGradeToMarks = { A: 70, B: 60, C: 50, D: 40 };
+    const convertGradeToMarks = { A: 75, B: 64.5, C: 54.5, D: 44.5 };
     units.forEach((unit, index) => {
       const row = document.createElement("div");
       row.style.display = "flex";
@@ -67,7 +67,7 @@
         radio.type = "radio";
         radio.style.margin = "10px";
         radio.value = grade;
-        radio.name = `grade-${index}`;
+        radio.name = `${index}`;
 
         label.appendChild(radio);
         radios.appendChild(label);
@@ -83,7 +83,9 @@
     });
 
     const result = document.createElement("p");
+    const range = document.createElement("p");
     document.body.appendChild(result);
+    document.body.appendChild(range);
 
     function recalculate() {
       totalCF = 0;
@@ -95,13 +97,44 @@
         totalSum += unit.cf * marks;
         const average = (totalSum / totalCF).toFixed(3);
 
-        result.innerText = `MINIMUM CF you can get:  ${average}`;
+        result.innerText = `Estimated CF:  ${average} `;
         result.style.fontWeight = "900";
+        result.style.marginBottom = "0px";
         result.style.color = average < 40 ? "red" : "green";
+
+        let minRange, maxRange, division;
+
+        const roundedAverage = Math.round(average);
+
+        if (roundedAverage >= 40 && roundedAverage <= 49) {
+          minRange = 40;
+          maxRange = 49;
+          division = "Pass";
+        } else if (roundedAverage >= 50 && roundedAverage <= 59) {
+          minRange = 50;
+          maxRange = 59;
+          division = "Second Class Lower";
+        } else if (roundedAverage >= 60 && roundedAverage <= 69) {
+          minRange = 60;
+          maxRange = 69;
+          division = "Second Class Upper";
+        } else if (roundedAverage >= 70 && roundedAverage <= 100) {
+          minRange = 70;
+          maxRange = 100;
+          division = "First Class";
+        } else {
+          minRange = 0;
+          maxRange = 39;
+          division = "Fail";
+        }
+
+        range.innerText = `Your actual CF is in between:  ${minRange} - ${maxRange} (${division})`;
+        range.style.margin = "0px";
+        range.style.fontWeight = "900";
+        range.style.textDecoration = "underline";
+        range.style.color = average < 40 ? "red" : "green";
         document.title = average;
       });
     }
-
-    recalculate();
   </script>
 </html>
